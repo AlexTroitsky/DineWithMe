@@ -10,6 +10,9 @@ cd /vagrant
 # Install dependencies with Pipenv
 pipenv sync --dev
 
+# Install bootsrap dependencies
+pipenv install django-bootstrap4
+
 # Run database migrations
 pipenv run python manage.py migrate
 

@@ -1,3 +1,10 @@
+{# Load the tag library #}
+{% load bootstrap4 %}
+
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+
 <html>
 <head>
     <title>Message board</title>
@@ -6,6 +13,11 @@
     </style>
 </head>
 <body>
+
+{% bootstrap_button "Save" button_type="submit" button_class="btn-primary" %}
+
+
+</nav>
     <h1>Message board</h1>
     <div class="newfrm">
         <p class="newmsg">New message:</p>
