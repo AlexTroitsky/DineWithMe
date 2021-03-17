@@ -1,39 +1,17 @@
-{# Load the tag library #}
+{% extends "base.html" %}
 {% load bootstrap4 %}
 
-{# Load CSS and JavaScript #}
-{% bootstrap_css %}
-{% bootstrap_javascript jquery='full' %}
 
 <html>
 <head>
-    <title>Message board</title>
-    <style type="text/css">
-        .author, .eom { color: grey }
-    </style>
+    <title>Dine With Me</title>
 </head>
 <body>
-
-{% bootstrap_button "Save" button_type="submit" button_class="btn-primary" %}
-
-
-</nav>
-    <h1>Message board</h1>
-    <div class="newfrm">
-        <p class="newmsg">New message:</p>
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="Post">
-        </form>
-        </div>
-    {% for message in messages %}
-    <div class="message">
-        <p class="author">
-        Posted by {{message.author}} at {{message.date}}
-        </p>
-        <p>{{ message.text }}</p>
+    {% block content %}
+    <h1>Dine With Me</h1>
+    <div class="buttonsContainer">
+        {% bootstrap_button "יצירת ארוחה" button_class="btn-primary" %}
+        {% bootstrap_button "חיפוש מתכונים" button_class="btn-primary" %}
     </div>
-    {% endfor %}
-    <p class="EOM">(End of messages)</p>
+    {% endblock content %}
 </body>
