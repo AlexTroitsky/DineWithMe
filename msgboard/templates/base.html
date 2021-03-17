@@ -1,0 +1,23 @@
+{# Load the tag library #}
+{% load bootstrap4 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{% load static %}
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.0/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="{% static 'msgboard/css/base.css' %}">
+        <div class="ruler">
+            {% bootstrap_button "התחברות" button_class="btn-primary loginButton" %}            
+            <button class="favoritesButton">
+                <img src="{% static 'msgboard/images/star.png' %}" class="favorites" title="favorites"></img>
+            </button>
+            
+        </div>
+    </head>
+
+    <body>
+    {% block content %}{% endblock content %}
+    </body>
+</html>

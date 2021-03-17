@@ -1,0 +1,35 @@
+.buttonsContainer {
+    margin: 50 auto;
+    text-align: center;
+}
+.btn-primary {
+    margin-left: 25px;
+    margin-right: 25px;
+    height: 400px;
+    width: 400px;
+    font-size: x-large;
+}
+.loginButton {
+    text-align: left !important;
+    height: 30px !important;
+    width: 80px !important;
+    font-size: small;
+    margin: 5px;
+}
+h1 {
+    text-align: center;
+}
+.ruler {
+    height: 40px;
+    background-color: black;
+}
+
+.favorites {
+    height: 30px;
+    width: 30px;
+}
+
+.favoritesButton {
+    background-color: black;
+    border: 1px solid black;
+}
