@@ -7,14 +7,14 @@ class Migration(migrations.Migration):
     ]
 
     def generate_data(apps, schema_editor):
-        from msgboard.models import Message
+        from msgboard.models import User
         test_data = [
-            ('Test User1', 'A simple test message'),
-            ('Test User2', 'Another simple test message'),
+            ('User1', '123'),
+            ('User2', '456'),
         ]
         with transaction.atomic():
-            for author, text in test_data:
-                Message(author=author, text=text).save()
+            for userName, password in test_data:
+                User(userName=userName, password=password).save()
     operations = [
         migrations.RunPython(generate_data),
     ]

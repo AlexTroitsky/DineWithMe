@@ -20,5 +20,6 @@ from msgboard import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.board, name='board')
+    path('', views.board, name='board'),
+    path('login/', views.login, name='login'),
 ]

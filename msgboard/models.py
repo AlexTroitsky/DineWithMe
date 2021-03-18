@@ -1,8 +1,6 @@
 from django.db import models
-from django.utils import timezone
 
 
-class Message(models.Model):
-    author = models.CharField(max_length=200)
-    text = models.TextField()
-    date = models.DateTimeField(default=timezone.now)
+class User(models.Model):
+    userName = models.CharField(max_length=30)
+    password = models.CharField(max_length=30)
