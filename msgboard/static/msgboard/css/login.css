@@ -1,0 +1,20 @@
+.loginForm {
+    margin: 100 auto;
+    direction: rtl;
+    height: 250px;
+    width: 600px;
+    border: 1px solid black;
+}
+
+.form-group {
+    text-align: right;
+    margin: 10px;
+}
+
+form {
+    text-align: center;
+}
+
+.loginBtn {
+    margin-top: 20px;
+}

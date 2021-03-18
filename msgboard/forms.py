@@ -1,8 +1,7 @@
 from django import forms
-from .models import Message
+from .models import User
 
-
-class MessageForm(forms.ModelForm):
+class LoginForm(forms.ModelForm):
     class Meta:
-        model = Message
-        fields = ('author', 'text')
+        model = User
+        fields = ('userName', 'password')

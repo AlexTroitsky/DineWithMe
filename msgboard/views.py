@@ -1,18 +1,21 @@
 from django.shortcuts import render, redirect
-from .models import Message
-from .forms import MessageForm
+from .models import User
+from .forms import LoginForm
 
 
 def board(request):
-    messages = Message.objects.order_by('-date')
+    return render(request, 'msgboard/board.html')
+
+def login(request):
+    users = User.objects.order_by('userName')
     if request.method == "POST":
-        form = MessageForm(request.POST)
+        form = LoginForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('board')
     else:
-        form = MessageForm()
-    return render(request, 'msgboard/board.html', {
-        'messages': messages,
+        form = LoginForm()
+    return render(request, 'login.html', {
+        'users': users,
         'form': form,
     })
