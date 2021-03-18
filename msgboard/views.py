@@ -6,6 +6,7 @@ from .forms import LoginForm
 def board(request):
     return render(request, 'msgboard/board.html')
 
+
 def login(request):
     users = User.objects.order_by('userName')
     if request.method == "POST":
