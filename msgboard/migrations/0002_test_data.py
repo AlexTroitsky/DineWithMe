@@ -7,14 +7,14 @@ class Migration(migrations.Migration):
     ]
 
     def generate_data(apps, schema_editor):
-        from msgboard.models import User
+        from django.contrib.auth.models import User
         test_data = [
             ('User1', '123'),
             ('User2', '456'),
         ]
         with transaction.atomic():
-            for userName, password in test_data:
-                User(userName=userName, password=password).save()
+            for username, password in test_data:
+                User(username=username, password=password).save()
     operations = [
         migrations.RunPython(generate_data),
     ]

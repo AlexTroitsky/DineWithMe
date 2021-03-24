@@ -22,4 +22,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.board, name='board'),
     path('login/', views.login, name='login'),
+    path('signup/', views.SignUpView.as_view(), name='signup'),
 ]

@@ -9,6 +9,8 @@ flake8 = "*"
 [packages]
 django = "*"
 django-bootstrap4 = "*"
+django-bootstrap-modal-forms = "*"
+django-widget-tweaks = "*"
 
 [requires]
 python_version = "3.8"
