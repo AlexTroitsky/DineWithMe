@@ -17,6 +17,7 @@ class LoginForm(forms.ModelForm):
             'password': (' '),
         }
 
+
 class CustomUserCreationForm(PopRequestMixin, CreateUpdateAjaxMixin,
                              UserCreationForm):
     class Meta:

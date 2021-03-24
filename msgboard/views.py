@@ -25,6 +25,7 @@ def login(request):
         'form': form,
     })
 
+
 class SignUpView(PassRequestMixin, SuccessMessageMixin, generic.CreateView):
     form_class = CustomUserCreationForm
     template_name = 'signup.html'
