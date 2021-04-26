@@ -5,4 +5,5 @@ class Ingredient:
         self.canBeReplaced = False
         self.Replacement = ''
 
-        #replacement not implemented yet
+        # replacement not implemented yet
+        
