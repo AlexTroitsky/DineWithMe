@@ -4,7 +4,9 @@ from dataScraping.DTO.Recipe import Recipe
 
 session = HTMLSession()
 response = session.get(
-    'https://foody.co.il/foody_recipe/%d7%9c%d7%91%d7%99%d7%91%d7%95%d7%aa-%d7%91-10-%d7%93%d7%a7%d7%95%d7%aa-%d7%9e%d7%9b%d7%9c-%d7%9e%d7%94-%d7%a9%d7%99%d7%a9-%d7%91%d7%9e%d7%a7%d7%a8%d7%a8-%d7%92%d7%9d-%d7%97%d7%a1%d7%9b%d7%95%d7%a0/')
+    'https://foody.co.il/foody_recipe/%d7%9c%d7%91%d7%99%d7%91%d7%95%d7%aa-'
+    '%d7%91-10-%d7%93%d7%a7%d7%95%d7%aa-%d7%9e%d7%9b%d7%9c-%d7%9e%d7%94-%d7%a9%d7'
+    '%99%d7%a9-%d7%91%d7%9e%d7%a7%d7%a8%d7%a8-%d7%92%d7%9d-%d7%97%d7%a1%d7%9b%d7%95%d7%a0/')
 
 recipe = Recipe()
 article = response.html.find('article', first=True)
