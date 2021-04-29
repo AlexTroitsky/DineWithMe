@@ -12,6 +12,7 @@ django-bootstrap4 = "*"
 django-bootstrap-modal-forms = "*"
 django-widget-tweaks = "*"
 django-crispy-forms = "*"
+requests-html = "*"
 
 [requires]
 python_version = "3.8"
