@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'msgboard.apps.MsgboardConfig',
+    'users.apps.UsersConfig',
+    'crispy_forms',
     'bootstrap_modal_forms',
     'bootstrap4',
     'widget_tweaks',
@@ -122,3 +124,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOGIN_REDIRECT_URL = 'board'
+LOGIN_URL = 'login'

@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "5356fc7af776e197bfa686a34bb14265917da1775627b6e5d93818434f8ac622"
+            "sha256": "a7cc476eb28864ee37d7705badef28d49b42516b1ac25ed9a784ad8873b6a123"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -75,10 +75,10 @@
         },
         "django-bootstrap-modal-forms": {
             "hashes": [
-                "sha256:a282f99d3572ed0cf5335a01cd9d0d529a1a8d2685446c1281fb73f113994d77"
+                "sha256:be180b30892aa7b8012718dfca7586de7d0c143585bc44ed507d50569cdd41cd"
             ],
             "index": "pypi",
-            "version": "==2.1.0"
+            "version": "==2.2.0"
         },
         "django-bootstrap4": {
             "hashes": [
@@ -87,6 +87,14 @@
             ],
             "index": "pypi",
             "version": "==3.0.0"
+        },
+        "django-crispy-forms": {
+            "hashes": [
+                "sha256:3db71ab06d17ec9d0195c086d3ad454da300ac268752ac3a4f63d72f7a490254",
+                "sha256:88efa857ce6111bd696cc4f74057539a3456102fe9c3a3ece8868e1e4579e70a"
+            ],
+            "index": "pypi",
+            "version": "==1.11.2"
         },
         "django-widget-tweaks": {
             "hashes": [
