@@ -37,7 +37,8 @@ class Migration(migrations.Migration):
                     ('E', 'Easy'), ('C', 'Challenging'), ('T', 'Tough')], max_length=1)),
                 ('numberOfIngredients', models.IntegerField()),
                 ('preparationMethod', models.CharField(choices=[
-                    ('BA', 'Baking'), ('RO', 'Roasting'), ('CO', 'Cooking'), ('ST', 'Steaming'), ('FR', 'Frying'), ('PI', 'Pickling'), ('CU', 'Cuts')], max_length=2)),
+                    ('BA', 'Baking'), ('RO', 'Roasting'), ('CO', 'Cooking'), ('ST', 'Steaming'), ('FR', 'Frying'), ('PI', 'Pickling'), ('CU', 'Cuts')],
+                    max_length=2)),
                 ('notes', models.TextField()),
                 ('url', models.TextField()),
                 ('numberOfServings', models.IntegerField()),
