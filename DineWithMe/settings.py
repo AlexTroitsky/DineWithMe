@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'msgboard.apps.MsgboardConfig',
     'users.apps.UsersConfig',
+    'recipeSearch.apps.RecipeSearchConfig',
     'crispy_forms',
     'bootstrap_modal_forms',
     'bootstrap4',
