@@ -1,4 +1,3 @@
-from enum import Enum
 from django.db import models
 
 
@@ -31,8 +30,10 @@ class Recipe(models.Model):
     numberOfServings = models.IntegerField()
     # profileImg = models.ImageField()
 
+
 class FoodyData(models.Model):
     recipes = []
+
 
 class Ingredient(models.Model):
     name = models.CharField(max_length=20)
