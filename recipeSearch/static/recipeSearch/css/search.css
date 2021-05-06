@@ -1,15 +1,14 @@
 .meal-style {
-    border: 1px solid red;
 }
 
 .food-kind {
-    border: 1px solid green;
 }
 
 .table {
-    border: 1px solid blue;
+    background-color: teal;
     width: 600px;
     height: 600px;
+    margin-left: 10px;
 }
 
 .searchMain {
@@ -25,12 +24,31 @@
 .tableAndForm {
     display: flex;
     flex-direction: row;
+    margin: 5px;
 }
 
 .formWrapper {
-    text-align: right;
+    text-align: left;
+    padding: 10px;
+    height: fit-content;
+    background-color: wheat;
 }
 
 h1 {
     display: flex;
+}
+
+.btn-info {
+    margin: 5px;
+}
+
+.bootstrap-tagsinput {
+    display: flex;
+    flex-grow: 1;
+    margin: 5px;
+}
+
+.input-group {
+    display: flex;
+    flex-grow: 1;
 }
