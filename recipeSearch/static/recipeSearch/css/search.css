@@ -1,0 +1,36 @@
+.meal-style {
+    border: 1px solid red;
+}
+
+.food-kind {
+    border: 1px solid green;
+}
+
+.table {
+    border: 1px solid blue;
+    width: 600px;
+    height: 600px;
+}
+
+.searchMain {
+    display: flex;
+    flex-direction: column;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.tableAndForm {
+    display: flex;
+    flex-direction: row;
+}
+
+.formWrapper {
+    text-align: right;
+}
+
+h1 {
+    display: flex;
+}

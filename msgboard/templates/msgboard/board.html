@@ -11,7 +11,8 @@
     <h1>Dine With Me</h1>
     <div class="buttonsContainer">
         {% bootstrap_button "יצירת ארוחה" button_class="btn-primary" %}
-        {% bootstrap_button "חיפוש מתכונים" button_class="btn-primary" %}
+        <a class="nav-item nav-link" href="{% url 'search' %}">חיפוש מתכונים</a>
+        <!-- {% bootstrap_button "חיפוש מתכונים" button_class="btn-primary" %} -->
     </div>
     {% endblock content %}
 </body>

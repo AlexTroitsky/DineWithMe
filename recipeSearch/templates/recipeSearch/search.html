@@ -1,0 +1,116 @@
+{% extends "msgboard/tmp_base.html" %}
+{% load bootstrap4 %}
+{% load static %}
+
+<html>
+    <head>
+        <title>Beyond message board</title>
+        <style type="text/css">
+            .author, .eom { color: grey }
+        </style>
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    </head>
+<body>
+    {% block content %}
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="{% static 'recipeSearch/css/bootstrap-tagsinput.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{% static 'recipeSearch/css/bootstrap-tagsinput.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'recipeSearch/css/search.css' %}">
+    <div class="searchMain">
+        <h1>חיפוש מתכונים</h1>
+        <div class="tableAndForm">
+            <div class="tableWrraper">
+                <div class="table">
+                    {% for recipe in recipes %}
+                        <div class="recipe">
+                            Posted by {{recipe.name}}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <form class="formWrapper">
+                <div class="form-group">
+                    <div class="form-group">
+                        <label for="exampleFormControlInput1">שדה חיפוש</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="הקלד טקסט חופשי">
+                    </div>
+                    <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#formCollapse" aria-expanded="false" aria-controls="formCollapse">אפשרויות סינון</button>
+                    <div class="form multi-collapse collapse" id="formCollapse">
+                        <div class="input-group">
+                            <input type="text" data-role="tagsinput" value="" placeholder="הוסף מצרכים" data-separator="\n">
+                        </div>
+                        <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#mealStyleCollapse" aria-expanded="false" aria-controls="mealStyleCollapse">סגנון הארוחה</button>
+                        <div class="meal-style multi-collapse collapse" id="mealStyleCollapse">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mealStyle" id="exampleRadios1" value="option1" checked>
+                                <label class="form-check-label" for="exampleRadios1">איטלקי</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mealStyle" id="exampleRadios2" value="option2">
+                                <label class="form-check-label" for="exampleRadios2">אסייאתי</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mealStyle" id="exampleRadios3" value="option3">
+                                <label class="form-check-label" for="exampleRadios3">ים תיכוני</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mealStyle" id="exampleRadios3" value="option3">
+                                <label class="form-check-label" for="exampleRadios3">צרפתי</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mealStyle" id="exampleRadios3" value="option3">
+                                <label class="form-check-label" for="exampleRadios3">משולב</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mealStyle" id="exampleRadios3" value="option3">
+                                <label class="form-check-label" for="exampleRadios3">מקסיקני</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mealStyle" id="exampleRadios3" value="option3">
+                                <label class="form-check-label" for="exampleRadios3">הודי</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mealStyle" id="exampleRadios3" value="option3">
+                                <label class="form-check-label" for="exampleRadios3">ארוחת בוקר</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="mealStyle" id="exampleRadios3" value="option3">
+                                <label class="form-check-label" for="exampleRadios3">מתוקים</label>
+                            </div>
+                        </div>
+                        <button class="btn btn-info" type="button" data-toggle="collapse" data-target="#foodKindCollapse" aria-expanded="false" aria-controls="foodKindCollapse">חפש לפי:</button>
+                        <div class="food-kind  multi-collapse collapse" id="foodKindCollapse">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="foodKind" id="exampleRadios1" value="option1" checked>
+                                <label class="form-check-label" for="exampleRadios1">בשרי</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="foodKind" id="exampleRadios2" value="option2">
+                                <label class="form-check-label" for="exampleRadios2">חלבי</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="foodKind" id="exampleRadios3" value="option3">
+                                <label class="form-check-label" for="exampleRadios3">דגים</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="foodKind" id="exampleRadios3" value="option3">
+                                <label class="form-check-label" for="exampleRadios3">טבעוני</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="foodKind" id="exampleRadios3" value="option3">
+                                <label class="form-check-label" for="exampleRadios3">צמחוני</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="foodKind" id="exampleRadios3" value="option3">
+                                <label class="form-check-label" for="exampleRadios3">כשר</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mb-2">חיפוש</button>
+            </form>
+    </div>
+    </div>
+    {% endblock content %}
+</body>
