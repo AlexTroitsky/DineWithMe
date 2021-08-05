@@ -30,7 +30,5 @@ class Meal(models.Model):
     participants = models.ManyToManyField(User)
     owner = models.CharField(max_length=20)
     # models.ForeignKey(User, on_delete=models.CASCADE) # connects a user to a meal
-
-
     def __str__(self):
         return self.name
