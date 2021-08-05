@@ -7,4 +7,3 @@ class MealCreationForm(ModelForm):
     class Meta:
         model = Meal
         fields = ['name', 'participantsNumber', 'mealKind', 'mealStyle', 'participants', 'owner']
-

@@ -29,6 +29,6 @@ class Meal(models.Model):
     mealStyle = models.CharField(max_length=20, choices=MEAL_STYLE_CHOICES)
     participants = models.ManyToManyField(User)
     owner = models.CharField(max_length=20)
-    # models.ForeignKey(User, on_delete=models.CASCADE) # connects a user to a meal
+    
     def __str__(self):
         return self.name
