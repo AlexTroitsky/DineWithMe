@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Meal(models.Model):
     MEAL_STYLE_CHOICES = [
         ('italian', 'Italian'),
@@ -27,8 +28,9 @@ class Meal(models.Model):
     mealKind = models.CharField(max_length=20, choices=MEAL_KIND_CHOICES)
     mealStyle = models.CharField(max_length=20, choices=MEAL_STYLE_CHOICES)
     participants = models.ManyToManyField(User)
-    owner = models.CharField(max_length=20) # models.ForeignKey(User, on_delete=models.CASCADE) # connects a user to a meal
-    
-    
+    owner = models.CharField(max_length=20)
+    # models.ForeignKey(User, on_delete=models.CASCADE) # connects a user to a meal
+
+
     def __str__(self):
             return self.name
