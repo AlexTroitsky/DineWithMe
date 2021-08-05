@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'msgboard.apps.MsgboardConfig',
     'users.apps.UsersConfig',
     'recipeSearch.apps.RecipeSearchConfig',
+    'createMeal.apps.CreatemealConfig',
     'crispy_forms',
     'bootstrap_modal_forms',
     'bootstrap4',
