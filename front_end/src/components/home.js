@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import RestaurantIcon from '@material-ui/icons/Restaurant';
 import SearchIcon from '@material-ui/icons/Search';
 

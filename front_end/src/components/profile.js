@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Recommendations from "../components/Recommendations";
 
 
 class profile extends Component {
@@ -22,8 +21,6 @@ class profile extends Component {
                             </div>
                         </div>
                     </section>
-
-                   <Recommendations />
 
                     <section className="ftco-section" style={{ padding: "4em 0em" }}>
                         <div className="media-body user-area" style={{ margin: "0em 25em" }}>

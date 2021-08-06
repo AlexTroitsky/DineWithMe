@@ -1,6 +1,5 @@
-import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import {Col, Row} from "react-bootstrap";
+import React from 'react';
+import {Col, } from "react-bootstrap";
 
 export default function Header() {
 
