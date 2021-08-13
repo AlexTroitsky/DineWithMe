@@ -12,10 +12,6 @@ class profile extends Component {
                         <div className="container">
                             <div className="row no-gutters slider-text align-items-end">
                                 <div className="col-md-9 pb-5" style={{ textAlign: "right", margin: "0 auto" }}>
-                                    <p className="breadcrumbs mb-2">
-                                        <span>פרופיל  <i className="ion-ios-arrow-forward" /></span>
-                                        <span className="mr-2"><a href="/">בית <i className="ion-ios-arrow-forward" /></a></span>
-                                    </p>
                                     <h1 className="mb-0 bread">פרופיל משתמש</h1>
                                 </div>
                             </div>
@@ -29,7 +25,7 @@ class profile extends Component {
                                     <p className="mb-0 phone pl-md-2" style={{ textAlign: "right", width: "61%" }}>
                                         <a href="/editProfile" className="mr-2">עריכת פרופיל</a>
                                         <span> | </span>
-                                        <a className="btn"> !שלום ישראל </a>
+                                        <a className="btn"> !שלום </a>
                                     </p>
                                 </div>
                             </div>
@@ -37,9 +33,9 @@ class profile extends Component {
                                 <img src="../assets/images/staff-5.jpg" className="rounded" style={{ height: "245px", position: "relative", right: "-44%", border: "2px solid #4ccbba" }} />
                             </div>
                             <div className="user-details">
-                                <span>ישראל ישראלי</span>
+                                <span>ישראל</span>
                                 <br />
-                                <span>israel@gmail.com</span>
+                                <span>@gmail.com</span>
                                 <br />
                                 <span>12345678</span>
                             </div>
