@@ -1,0 +1,28 @@
+{% extends "msgboard/tmp_base.html" %}
+{% load crispy_forms_tags %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block content %}
+<html>
+    <body>
+
+  
+    <div class="container-fluid">    
+
+          <h1>Welcome</h1>
+          <p>This is a page for creating new meals.</p>
+          <hr>
+
+          <h3>Test</h3>
+            <form action="" method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit">
+
+            </form>
+
+    </div>
+    </body>
+</html>
+{% endblock content %}
