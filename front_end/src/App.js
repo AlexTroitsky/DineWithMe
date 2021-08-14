@@ -12,61 +12,64 @@ import Recipe from "./components/recipe/recipe";
 import Meals from "./components/meals"
 import Meal from "./components/meal/meal";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import {HEADERS, REST_API_IP, TOKEN} from "./config";
+import axios from "axios";
+import Profile from "./components/profile";
 
 function App() {
-    const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        fetch('http://localhost:8000/petWise/user/is_logged_in')
-            .then(res => res.text())
+        axios.get(`${REST_API_IP}/tokens/${TOKEN}/`, {headers: HEADERS})
             .then(
                 (result) => {
+                    setIsLoggedIn(true);
                     setIsLoaded(true);
-                    setIsLoggedIn(result === "True");
                     console.log(result)
                 },
                 // Note: it's important to handle errors here
                 // instead of a catch() block so that we don't swallow
                 // exceptions from actual bugs in components.
-                (error) => {
-                    setIsLoaded(true);
-                    alert(error);
-                }
-            )
+            ).catch((error) => {
+                setIsLoaded(true);
+                setIsLoggedIn(false);
+                console.log(error.response);
+            })
     }, []);
-       return (
-           <div>
-               <Router>
-                   <Header isLoggedIn={isLoggedIn}/>
-                   <Switch>
-                       <Route exact path="/" component={home}/>
-                       <Route exact path="/recipes" component={Recipes}/>
-                       <Route exact path="/recipes/:id" render={(props) => (<Recipe id={props.match.params.id}/>)}/>
-                       {/*<Route exact path="/register" component={Register} />*/}
-                       {/*<Route exact path="/login" component={Login}>*/}
-                       <Route exact path="/login">
-                           {isLoggedIn ? <Redirect to="/"/> : <Login/>}
-                       </Route>
-                       <Route exact path="/register">
-                           {isLoggedIn ? <Redirect to="/"/> : <Register/>}
-                       </Route>
-                       <Route path="/profile">
-                           {isLoggedIn ? <profile/> : <Redirect to="/login"/>}
-                       </Route>
-                       <Route path="/editProfile">
-                           {isLoggedIn ? <editProfile/> : <Redirect to="/login"/>}
-                       </Route>
-                       <Route path="/meals/">
-                           {isLoggedIn ? <Meals/> : <Redirect to="/login"/>}
-                       </Route>
-                       {/*<Route exact path="/meals" component={Meals}/>*/}
-                       <Route exact path="/meals/:id" render={(props) => (<Meal id={props.match.params.id}/>)}/>
-                   </Switch>
-               </Router>
-           </div>
-       );
+    if (!isLoaded) {
+        return <center>Loading ...</center>
+    }
+    return (
+        <div>
+            <Router>
+                <Header isLoggedIn={isLoggedIn}/>
+                <Switch>
+                    <Route exact path="/" component={home}/>
+                    <Route exact path="/recipes" component={Recipes}/>
+                    <Route exact path="/recipes/:id" render={(props) => (<Recipe id={props.match.params.id}/>)}/>
+                    {/*<Route exact path="/register" component={Register} />*/}
+                    {/*<Route exact path="/login" component={Login}>*/}
+                    <Route exact path="/login">
+                        {isLoggedIn ? <Redirect to="/"/> : <Login/>}
+                    </Route>
+                    <Route exact path="/register">
+                        {isLoggedIn ? <Redirect to="/"/> : <Register/>}
+                    </Route>
+                    <Route path="/profile">
+                        {isLoggedIn ? <Profile/> : <Redirect to="/login"/>}
+                    </Route>
+                    <Route path="/editProfile">
+                        {isLoggedIn ? <editProfile/> : <Redirect to="/login"/>}
+                    </Route>
+                    <Route exact path="/meals/">
+                        {isLoggedIn ? <Meals/> : <Redirect to="/login"/>}
+                    </Route>
+                    <Route exact path="/meals/:id" render={(props) => (<Meal id={props.match.params.id}/>)}/>
+                </Switch>
+            </Router>
+        </div>
+    );
 }
 
 export default App;

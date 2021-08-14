@@ -10,6 +10,8 @@ import ExploreIcon from '@material-ui/icons/Explore';
 import ListAltIcon from '@material-ui/icons/ListAlt';
 import RecipeTile from "../recipe-tile";
 import ViewListIcon from '@material-ui/icons/ViewList';
+import axios from "axios";
+import {HEADERS, REST_API_IP} from "../../config";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,12 +26,26 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Meal = ({ id }) => {
-    const [meals, setMeals] = useState(null);
+    const [meal, setMeal] = useState(null);
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const classes = useStyles();
 
     useEffect(() => {
+        axios.get(`${REST_API_IP}/meals/${id}`, {headers: HEADERS})
+            .then(
+                (result) => {
+                    setMeal(result.data)
+                    setIsLoaded(true);
+                    console.log(result.data)
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+            ).catch((error) => {
+            setIsLoaded(true);
+            console.log(error.response);
+        })
         // const url = `${API_URL}/${id}?type=public&app_id=${APP_ID}&app_key=${APP_KEY}`
         // fetch(url)
         //     .then(res => res.json())
@@ -66,41 +82,38 @@ const Meal = ({ id }) => {
                 "drinks"
             ],
         }}
-        setMeals({title: 'breakfast with friends', cuisine: 'italian', people: 4, health: 'Vegan',
-        recipes: [demo_recipe, demo_recipe, demo_recipe]});
-        setIsLoaded(true);
     }, [])
 
 
     if (error) {
         return <center>Error: {error.message}</center>;
-        } else if (!isLoaded || !meals) {
+        } else if (!isLoaded || !meal) {
             return <center>Loading...</center>;
     } else {
         return (
             <div className='recipe-card '>
 
                 <div className="recipe-card__body">
-                    <h2 className="recipe-card__heading text-center">{meals.title}</h2>
+                    <h2 className="recipe-card__heading text-center">{meal.name}</h2>
                     <ul className="recipe-details">
                         <li className="recipe-details-item time">
                             <center>
                                <ExploreIcon/>
-                                <span className="value"> {meals.cuisine}</span>
+                                <span className="value"> {meal.cuisine ? meal.cuisine : "All"}</span>
                             </center>
                             <span className="title">Cuisine</span>
                         </li>
                         <li className="recipe-details-item servings">
                             <center>
                                <PersonIcon/>
-                                <span className="value"> {meals.people}</span>
+                                <span className="value"> {meal.mouths}</span>
                             </center>
-                            <span className="title">Mouths</span>
+                            <span className="title">Participants</span>
                         </li>
                         <li className="recipe-details-item calories">
                             <center>
                                <FavoriteIcon/>
-                                <span className="value"> {meals.health}</span>
+                                <span className="value"> {meal.health ? meal.health : "All"}</span>
                             </center>
                             <span className="title">Meal</span>
                         </li>
@@ -111,7 +124,7 @@ const Meal = ({ id }) => {
                     </ul>
                      <Row className={"recipes-container"}>
                          <ImageList cols={4} classes={{root: classes.root}}>
-                             {meals.recipes !=null && meals.recipes.map((recipe) => <RecipeTile style={{padding: '2px'}} recipe={recipe}/>)};
+                             {meal.recipes !=null && meal.recipes.map((recipe) => <RecipeTile style={{padding: '2px'}} recipe={recipe}/>)};
                          </ImageList>
                      </Row>
                 </div>

@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {Col, } from "react-bootstrap";
 import {useLocation} from "react-router-dom";
+import Logout from "./logout";
 
 export default function Header({isLoggedIn}) {
 
@@ -26,7 +27,7 @@ export default function Header({isLoggedIn}) {
                                 <ul className="navbar-nav ml-auto">
                                     {/* <li className="nav-item"><a href="/contact" className="nav-link">צור קשר</a></li> */}
                                     {/* <li className="nav-item"><a href="/associations" className="nav-link">ארגונים</a></li> */}
-                                    <li className={(splitLocation[1] === "login" || splitLocation[1] === "logout") ? "nav-item active" : "nav-item"}>{isLoggedIn ? <a href="/logout" className="nav-link">התנתק</a> : <a href="/login" className="nav-link"> התחבר</a>}</li>
+                                    <li className={(splitLocation[1] === "login" || splitLocation[1] === "logout") ? "nav-item active" : "nav-item"}>{isLoggedIn ? <a onClick={Logout} className="nav-link">התנתק</a> : <a href="/login" className="nav-link"> התחבר</a>}</li>
                                     <li className={splitLocation[1] === "profile" ? "nav-item active" : "nav-item"}><a href="/profile" className="nav-link">פרופיל</a></li>
                                     <li className={splitLocation[1] === "recipes" ? "nav-item active" : "nav-item"}><a href="/recipes" className="nav-link">מתכונים</a></li>
                                     {isLoggedIn ? <li className={splitLocation[1] === "meals" ? "nav-item active" : "nav-item"}> <a href="/meals" className="nav-link">ארוחות</a> </li> : null}

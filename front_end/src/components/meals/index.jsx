@@ -7,6 +7,11 @@ import {Link} from "react-router-dom";
 import {Col, Row} from "react-bootstrap";
 import AddIcon from "@material-ui/icons/Add";
 import MenuItem from '@material-ui/core/MenuItem';
+import axios from "axios";
+import {HEADERS, REST_API_IP, TOKEN} from "../../config";
+import {useEffect, useState} from "react";
+import DeleteIcon from '@material-ui/icons/Delete';
+import ButtonGroup from "antd/es/button/button-group";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,11 +20,12 @@ const useStyles = makeStyles((theme) => ({
             // width: '25ch',
         },
     },
+
 }));
 
 const columns = [
     {
-        field: 'title',
+        field: 'name',
         headerName: 'Title',
         minWidth: 150,
         flex: 0.2,
@@ -38,7 +44,7 @@ const columns = [
         flex: 0.1,
     },
     {
-        field: 'people',
+        field: 'mouths',
         headerName: 'Mouths',
         type: 'number',
         minWidth: 150,
@@ -46,55 +52,114 @@ const columns = [
         flex: 0.1,
     },
     {
-        field: "open",
-        headerName: "Open",
+        field: 'date_created',
+        headerName: 'Created',
+        type: 'dateTime',
+        renderCell: (params) => {
+            let current_datetime = new Date(params.value);
+            let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds();
+            return formatted_date;
+        },
+        minWidth: 100,
+        sortable: true,
+        flex: 0.1,
+    },
+    {
+        field: "actions",
+        headerName: "Actions",
         sortable: false,
-        width: 90,
+        minWidth: 180,
         disableClickEventBubbling: true,
         renderCell: (params) => {
-            console.log(params.row)
             return (
-                <Button
-                    variant="contained"
-                    color="primary"
-                    startIcon={<OpenInNewIcon/>}
-                    component={Link}
-                    to={`/meals/${params.row.id}`}
-                >
-                </Button>
+                <div className=".btns">
+                    <ButtonGroup variant="text" size="small" aria-label="text outlined button group">
+                        <Button
+                            color="secondary"
+                            size="small"
+                            startIcon={<DeleteIcon/>}
+                            // component={Link}
+                            // to={`/meals/${params.row.id}`}
+                            onClick={(event) => {
+                                if (window.confirm('Are you sure you wish to delete this meal?')) {
+                                    axios.delete(`${REST_API_IP}/meals/${params.row.id}`, {headers: HEADERS});
+                                    window.location.reload(false);
+                                }
+                            }}
+                        >
+                            Delete
+                        </Button>
+                        <Button
+                            color="primary"
+                            size="small"
+                            startIcon={<OpenInNewIcon/>}
+                            component={Link}
+                            to={`/meals/${params.row.id}`}
+                        >
+                            Open
+                        </Button>
+                    </ButtonGroup>
+                </div>
             );
         }
     }
 ];
 
-const rows = [
-    { id: 1, title: 'testing asjdjakksdhkjasdjkh ashd', health: 'Vegan', cuisine: "Italian", people: 5},
-    { id: 2, title: 'testing asjdjakksdhkjasdjkh ashd', health: 'Vegan', cuisine: "Italian", people: 5},
-    { id: 3, title: 'testing asjdjakksdhkjasdjkh ashd', health: 'Vegan', cuisine: "Italian", people: 5},
-    { id: 4, title: 'testing asjdjakksdhkjasdjkh ashd', health: 'Vegan', cuisine: "Italian", people: 5},
-
-];
-
 export default function Meals() {
     const classes = useStyles();
     const [formData, updateFormData] = React.useState(null);
-    const [meals, setMeals] = React.useState(rows);
+    const [meals, setMeals] = React.useState(null);
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    useEffect(() => {
+        axios.get(`${REST_API_IP}/meals/`, {headers: HEADERS})
+            .then(
+                (result) => {
+                    setMeals(result.data)
+                    setIsLoaded(true);
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+            ).catch((error) => {
+            setIsLoaded(true);
+            console.log(error.response);
+        })
+    }, []);
+
+
     const onSubmit = (event) => {
         event.preventDefault();
-        debugger
-        formData['id'] = meals[meals.length - 1].id + 1;
-        setMeals( meals.concat(formData))
 
+        axios.post(`${REST_API_IP}/meals/`,
+            formData,
+            {headers: HEADERS})
+            .then(
+                (result) => {
+                    setMeals( meals.concat(result.data));
+                    console.log(result.data);
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+            ).catch((error) => {
+
+            let response = JSON.stringify(error.response.data)
+            alert(response);
+            console.log(error.response);
+        });
     }
 
     const handleChange = (e) => {
         updateFormData({
             ...formData,
-
             // Trimming any whitespace
             [e.target.name]: e.target.value
         });
     };
+    if (!isLoaded) {
+        return <center>Loading ...</center>
+    }
 
     return (
         <Container style={{ height: 600, width: '100%' }} fixed>
@@ -104,8 +169,8 @@ export default function Meals() {
                     <h6>Create New Meal</h6>
                     <hr/>
 
-                    <TextField name="title" error={formData ? formData.title == "": null} id="standard-secondary" label="Meal Title" color="primary" required/>
-                    <TextField name="people" error={formData ? formData.people <= 0: null} id="standard-number" label="People eating" type="number" required/>
+                    <TextField name="name" error={formData ? formData.name == "": null} id="standard-secondary" label="Meal Title" color="primary" required/>
+                    <TextField name="mouths" error={formData ? formData.mouths <= 0: null} id="standard-number" label="Participants" type="number" required/>
 
                     <TextField id="standard-select-meal-type"
                                defaultValue={""}
@@ -124,14 +189,15 @@ export default function Meals() {
                         <MenuItem value="pecatarian">
                             Pecatarian-(Only Fish)
                         </MenuItem>
-                        <MenuItem value="red-meat-free">
-                            Red-meat-free
-                        </MenuItem>
                         <MenuItem value="kosher">
                             Kosher
                         </MenuItem>
                         <MenuItem value="gluten-free">
                             Gluten-free
+                        </MenuItem>
+
+                        <MenuItem value="meat">
+                            Meat
                         </MenuItem>
                     </TextField>
                     <TextField id="standard-select-cuisine"
@@ -141,31 +207,28 @@ export default function Meals() {
                         <MenuItem value={""}>
                             All Cuisine
                         </MenuItem>
-                        <MenuItem value="American">
+                        <MenuItem value="american">
                             American
                         </MenuItem>
-                        <MenuItem value="Asian">
+                        <MenuItem value="asian">
                             Asian
                         </MenuItem>
-                        <MenuItem value="British">
+                        <MenuItem value="british">
                             British
                         </MenuItem>
-                        <MenuItem value="Chinese">
+                        <MenuItem value="chinese">
                             Chinese
                         </MenuItem>
-                        <MenuItem value="French">
+                        <MenuItem value="french">
                             French
                         </MenuItem>
-                        <MenuItem value="Italian">
+                        <MenuItem value="italian">
                             Italian
                         </MenuItem>
-                        <MenuItem value="Kosher">
-                            Kosher
-                        </MenuItem>
-                        <MenuItem value="Mediterranean">
+                        <MenuItem value="mediterranean">
                             Mediterranean
                         </MenuItem>
-                        <MenuItem value="Mexican">
+                        <MenuItem value="mexican">
                             Mexican
                         </MenuItem>
                     </TextField>
@@ -183,12 +246,13 @@ export default function Meals() {
             <div style={{ display: 'flex', height: '100%' }}>
                 <div style={{ flexGrow: 1 }}>
                     <DataGrid
-                        rowDoubleClick={(params, event) => {
-                            if (!event.ctrlKey) {
-                                event.defaultMuiPrevented = true;
-                                console.log(params, event)
-                            }
-                        }}
+
+                        // rowDoubleClick={(params, event) => {
+                        //     if (!event.ctrlKey) {
+                        //         event.defaultMuiPrevented = true;
+                        //         console.log(params, event)
+                        //     }
+                        // }}
                         rows={meals}
                         columns={columns}
                         pageSize={10}

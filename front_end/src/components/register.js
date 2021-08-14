@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import axios from "axios";
+import {HEADERS, REST_API_IP, TOKEN} from "../config";
 
 
 export default function Register() {
@@ -30,24 +32,28 @@ export default function Register() {
             alert("הסיסמאות לא זהות")
             return;
         }
-        let xhr = new XMLHttpRequest();
-        xhr.open("POST", 'http://localhost:8000/petWise/register', true);
-        xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        xhr.send(JSON.stringify({
-            email: email,
-            password: password,
-            username: username
-        }));
 
-        xhr.onreadystatechange = function () {
-            if (this.readyState !== 4) return;
+        axios.post(`${REST_API_IP}/register/`,
+            {
+                email: email,
+                password: password,
+                confirm_password: repassword,
+                username: username},
+            {headers: HEADERS})
+            .then(
+                (result) => {
+                    localStorage.setItem('token', result.data['token'])
+                    window.location.href = '/';
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+            ).catch((error) => {
 
-            if (this.status === 200) {
-                console.log(data)
-                window.location.href = '../';
-            }
-            console.log(this.status)
-        };
+                let response = JSON.stringify(error.response.data)
+                alert(response);
+                console.log(error.response);
+            });
     };
 
     return (

@@ -15,6 +15,8 @@ import Fab from '@material-ui/core/Fab';
 import CheckIcon from '@material-ui/icons/Check';
 import SaveIcon from '@material-ui/icons/Save';
 import clsx from "clsx";
+import axios from "axios";
+import {HEADERS, REST_API_IP} from "../../config";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,6 +69,7 @@ export default function MealsList() {
   const [checked, setChecked] = React.useState([0]);
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
+  const [meals, setMeals] = React.useState([]);
   const timer = React.useRef();
   const buttonClassname = clsx({
     [classes.buttonSuccess]: success,
@@ -75,6 +78,19 @@ export default function MealsList() {
 
   React.useEffect(() => {
     return () => {
+      debugger
+       axios.get(`${REST_API_IP}/meals/`, {headers: HEADERS})
+            .then(
+                (result) => {
+                    setMeals(result.data);
+                    console.log(result.data)
+                },
+                // Note: it's important to handle errors here
+                // instead of a catch() block so that we don't swallow
+                // exceptions from actual bugs in components.
+            ).catch((error) => {
+            console.log(error.response);
+        })
       clearTimeout(timer.current);
     };
   }, []);
@@ -106,21 +122,21 @@ export default function MealsList() {
   return (
       <div className={classes.paper}>
         <List className={classes.root}>
-          {[0, 1, 2, 3].map((value) => {
-            const labelId = `checkbox-list-label-${value}`;
+          {meals.map((meal) => {
+            const labelId = `checkbox-list-label-${meal.id}`;
 
             return (
-                <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
+                <ListItem key={meal.id} role={undefined} dense button onClick={handleToggle(meal)}>
                   <ListItemIcon>
                     <Checkbox
                         edge="start"
-                        checked={checked.indexOf(value) !== -1}
+                        checked={checked.indexOf(meal) !== -1}
                         tabIndex={-1}
                         disableRipple
                         inputProps={{ 'aria-labelledby': labelId }}
                     />
                   </ListItemIcon>
-                  <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+                  <ListItemText id={labelId} primary={meal.name} />
                   <ListItemSecondaryAction>
                     <IconButton edge="end" aria-label="comments">
                       <CommentIcon />
