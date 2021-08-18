@@ -4,7 +4,7 @@ import uuid
 # Create your models here.
 
 class Recipe(models.Model):
-    id = models.UUIDField(primary_key=True,  default=uuid.uuid4, editable=True)
+    id = models.UUIDField(primary_key=True,  default=uuid.uuid4, editable=True, unique=True)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     uri = models.URLField()
     label = models.CharField(name="label", max_length=400)
