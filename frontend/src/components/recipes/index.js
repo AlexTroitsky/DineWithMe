@@ -33,15 +33,12 @@ function Receipes() {
 
     let getRecipeInfo = async () => {
         let url = `${API_URL}?type=public&imageSize=REGULAR&q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`;
-        console.log(health, cuisine)
         if (health.length > 0)
             url += `&health=${health}`;
         if (cuisine.length > 0)
             url += `&cuisineType=${cuisine}`;
         let result = await Axios.get(url);
         setRecipes(result.data.hits);
-        console.log(result.data.hits);
-        console.log(result);
     };
 
     useEffect(() => {
@@ -145,7 +142,7 @@ function Receipes() {
                 <ImageList className={"justify-content-center"}
                            style={{"margin": 20}}
                 >
-                    {recipes !== [] && recipes.map((recipe) => <RecipeTile style={{padding: '2px'}} recipe={recipe['recipe']} />)};
+                    {recipes !== [] && recipes.map((recipe) => <RecipeTile style={{padding: '2px'}} del={false} recipe={recipe['recipe']} />)};
                 </ImageList>
             </Row>
         </Container>

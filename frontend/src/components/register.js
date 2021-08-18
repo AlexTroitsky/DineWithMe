@@ -50,8 +50,7 @@ export default function Register() {
                 // exceptions from actual bugs in components.
             ).catch((error) => {
 
-                let response = JSON.stringify(error.response.data)
-                alert(response);
+                alert(error);
                 console.log(error.response);
             });
     };

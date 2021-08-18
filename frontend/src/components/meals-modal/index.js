@@ -65,9 +65,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MealsList({recipe_id, meals, selected_meals, close_handler}) {
+export default function MealsList({recipe_id, meals, selected_meals, set_selected}) {
   const classes = useStyles();
-  const [checked, setChecked] = React.useState(selected_meals);
+  // const [selected_meals, setSelected_meals] = React.useState(selected_meals);
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
   const buttonClassname = clsx({
@@ -80,7 +80,7 @@ export default function MealsList({recipe_id, meals, selected_meals, close_handl
       setSuccess(false);
       setLoading(true);
 
-      axios.patch(`${REST_API_IP}/recipes/${recipe_id}`, {'meals': checked}, {headers:HEADERS}).then(
+      axios.patch(`${REST_API_IP}/recipes/${recipe_id}`, {'meals': selected_meals}, {headers:HEADERS}).then(
           (result) => {
             setSuccess(true);
             setLoading(false);
@@ -96,8 +96,8 @@ export default function MealsList({recipe_id, meals, selected_meals, close_handl
   };
 
   const handleToggle = (value) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
+    const currentIndex = selected_meals.indexOf(value);
+    const newChecked = [...selected_meals];
 
     if (currentIndex === -1) {
       newChecked.push(value);
@@ -105,7 +105,7 @@ export default function MealsList({recipe_id, meals, selected_meals, close_handl
       newChecked.splice(currentIndex, 1);
     }
 
-    setChecked(newChecked);
+    set_selected(newChecked);
   };
 
   return (
@@ -119,7 +119,7 @@ export default function MealsList({recipe_id, meals, selected_meals, close_handl
                   <ListItemIcon>
                     <Checkbox
                         edge="start"
-                        checked={checked.indexOf(meal.id) !== -1}
+                        checked={selected_meals.indexOf(meal.id) !== -1}
                         tabIndex={-1}
                         disableRipple
                         inputProps={{ 'aria-labelledby': labelId }}
@@ -128,7 +128,10 @@ export default function MealsList({recipe_id, meals, selected_meals, close_handl
                   <ListItemText id={labelId} primary={meal.name} />
                   <ListItemSecondaryAction>
                     <IconButton edge="end" aria-label="comments">
-                      <CommentIcon />
+                      <a href={`../meals/${meal.id}`}>
+                        <CommentIcon />
+                      </a>
+
                     </IconButton>
                   </ListItemSecondaryAction>
                 </ListItem>

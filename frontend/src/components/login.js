@@ -31,8 +31,7 @@ export default function Login() {
             })
             .catch((error) => {
                 console.log(error);
-                let response = JSON.stringify(error.response.data)
-                alert(response);
+                alert(error);
             })
     };
 

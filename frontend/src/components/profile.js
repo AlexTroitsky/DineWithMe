@@ -1,6 +1,7 @@
 import React, {Component, useEffect, useState} from 'react';
 import axios from "axios";
 import {HEADERS, REST_API_IP, TOKEN} from "../config";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 
 export default function Profile() {
@@ -27,7 +28,9 @@ export default function Profile() {
             })
     }, []);
     if (!isLoaded) {
-        return <center>Loading ...</center>
+         return (<div className="loading-card">
+                    <CircularProgress size={68} />
+                </div>);
     }
 
         return (

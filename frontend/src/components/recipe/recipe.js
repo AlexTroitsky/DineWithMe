@@ -45,7 +45,13 @@ const Recipe = ({ id, is_logged_in }) => {
 
     const classes = useStyles();
     const handleShare = () => {
-        navigator.clipboard.writeText(window.location.href).then(alert("Recipe copied to clipboard!"));
+        const el = document.createElement('input');
+        el.value = window.location.href;
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        alert("Recipe copied to clipboard!");
     };
 
     const handleOpen = () => {
@@ -55,13 +61,13 @@ const Recipe = ({ id, is_logged_in }) => {
         axios.get(`${REST_API_IP}/meals/`, {headers: HEADERS})
             .then(
                 (result) => {
+                    setMeals(result.data);
                     axios.get(`${REST_API_IP}/recipes/${recipe_id}`, {headers:HEADERS}).then(
                         (result) =>
                         {
                             setSelected(result.data.meals);
                         }
                     ).catch((error) => {
-                        debugger;
                         recipeData['id'] = recipe_id;
                         recipeData['cuisineType'] = recipeData['cuisineType'][0];
                         recipeData['mealType'] = recipeData['mealType'][0];
@@ -69,8 +75,6 @@ const Recipe = ({ id, is_logged_in }) => {
 
                         axios.post(`${REST_API_IP}/recipes/`, recipeData, {headers:HEADERS}).catch(error => alert(JSON.stringify(error.response.data)));
                     });
-
-                    setMeals(result.data);
                 },
                 // Note: it's important to handle errors here
                 // instead of a catch() block so that we don't swallow
@@ -179,7 +183,7 @@ const Recipe = ({ id, is_logged_in }) => {
                 </div>
 
                 <Modal className={classes.modal} open={open} onClose={handleClose} closeAfterTransition aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
-                        <MealsList recipe_id={recipe_id} recipe={recipeData} meals={meals} close_handler={handleClose} selected_meals={selected}/>
+                        <MealsList recipe_id={recipe_id} recipe={recipeData} meals={meals} close_handler={handleClose} selected_meals={selected} set_selected={setSelected}/>
                 </Modal>
             </div>
         );

@@ -13,6 +13,7 @@ import Meal from "./components/meal/meal";
 import Profile from "./components/profile";
 import {HEADERS, REST_API_IP, TOKEN} from "./config";
 import axios from "axios";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -36,7 +37,9 @@ function App() {
             })
     }, []);
     if (!isLoaded) {
-        return <center>Loading ...</center>
+         return (<div className="loading-card">
+                    <CircularProgress size={68} />
+                </div>);
     }
     return (
         <div>
