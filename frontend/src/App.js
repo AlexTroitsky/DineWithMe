@@ -5,16 +5,14 @@ import Header from './components/Header';
 import home from './components/home';
 import Login from './components/login';
 import Register from "./components/register";
-import profile from './components/profile';
 import editProfile from './components/editProfile';
 import Recipes from './components/recipes';
 import Recipe from "./components/recipe/recipe";
 import Meals from "./components/meals"
 import Meal from "./components/meal/meal";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import Profile from "./components/profile";
 import {HEADERS, REST_API_IP, TOKEN} from "./config";
 import axios from "axios";
-import Profile from "./components/profile";
 
 function App() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);

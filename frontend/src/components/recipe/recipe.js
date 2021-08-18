@@ -17,7 +17,6 @@ import {green} from "@material-ui/core/colors";
 import axios from "axios";
 import { toUUID } from 'to-uuid'
 import ShareIcon from '@material-ui/icons/Share';
-import ShareBtn from 'react-share-button';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -46,7 +45,7 @@ const Recipe = ({ id, is_logged_in }) => {
 
     const classes = useStyles();
     const handleShare = () => {
-
+        navigator.clipboard.writeText(window.location.href).then(alert("Recipe copied to clipboard!"));
     };
 
     const handleOpen = () => {
@@ -166,13 +165,8 @@ const Recipe = ({ id, is_logged_in }) => {
                     {is_logged_in ?
                     <Row>
                         <Col xs={3}>
-                            <Fab color="secondary"  className="share_ingredient" onClick={handleShare}>
-                                <ShareBtn
-                                    url={window.location.href}
-                                    className='ib'
-                                    displayText='Share'>
-                                    <ShareIcon />
-                                </ShareBtn>
+                           <Fab color="secondary"  className="share_ingredient" onClick={handleShare}>
+                                <ShareIcon />
                             </Fab>
                         </Col>
                         <Col className="offset-7">
