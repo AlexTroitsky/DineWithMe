@@ -4,4 +4,4 @@ export const API_URL = "https://api.edamam.com/api/recipes/v2"
 
 export const TOKEN = localStorage.getItem('token');
 export const HEADERS = {'Content-Type': 'application/json', 'Authorization': `Token ${TOKEN}`};
-export const REST_API_IP = `http://127.0.0.1:8000/api`
+export const REST_API_IP = `https://dine-with-me.herokuapp.com/api`
