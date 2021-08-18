@@ -59,7 +59,7 @@ export default function Register() {
         <>
             <div className="register" style={{
                 backgroundImage: 'url("../assets/images/bg_2.jpg")',
-                width: "99vw",
+                width: "100vw",
                 height: "70vh",
                 backgroundColor: "#f0f2f5",
                 display: "flex",
@@ -71,7 +71,7 @@ export default function Register() {
                         <div className="registerBox" style={{
                             height: "300px",
                             padding: "12%",
-                            backgroundColor: "#f1f1f1",
+                            backgroundColor: "#2f3030",
                             borderRadius: "10px",
                             display: "flex",
                             flexDirection: "column",
@@ -82,14 +82,17 @@ export default function Register() {
                                 borderRadius: "10px",
                                 border: "1px solid gray",
                                 fontSize: "18px",
-                                paddingLeft: "20px"
+                                paddingLeft: "20px",
+                                margin: "2px"
                             }}/>
                             <input placeholder="מייל" className="registerInput" onChange={handleEmailChanged} style={{
                                 height: "50px",
                                 borderRadius: "10px",
                                 border: "1px solid gray",
                                 fontSize: "18px",
-                                paddingLeft: "20px"
+                                paddingLeft: "20px",
+                                margin: "2px"
+
                             }}/>
                             <input type="password" placeholder="הקלידו סיסמה" className="registerInput"
                                    onChange={handlePasswordChanged} style={{
@@ -97,7 +100,9 @@ export default function Register() {
                                 borderRadius: "10px",
                                 border: "1px solid gray",
                                 fontSize: "18px",
-                                paddingLeft: "20px"
+                                paddingLeft: "20px",
+                                margin: "2px"
+
                             }}/>
                             <input type="password" placeholder="הקלידו סיסמה שוב" className="registerInput"
                                    onChange={handleRepasswordChanged} style={{
@@ -105,7 +110,8 @@ export default function Register() {
                                 borderRadius: "10px",
                                 border: "1px solid gray",
                                 fontSize: "18px",
-                                paddingLeft: "20px"
+                                paddingLeft: "20px",
+                                margin: "2px"
                             }}/>
                             <button className="registerButton" onClick={onClick}
                                     style={{
@@ -116,7 +122,9 @@ export default function Register() {
                                         color: "white",
                                         fontSize: "20px",
                                         fontWeight: "500",
-                                        cursor: "pointer"
+                                        cursor: "pointer",
+                                        margin: "5px"
+
                                     }}>הרשם
                             </button>
                         </div>

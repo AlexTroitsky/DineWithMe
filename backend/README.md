@@ -32,3 +32,5 @@ Meals organizing web app.
 ### Usage
     python manage.py runserver 127.0.0.1:8000
 
+### Deployment with heroku
+    git subtree push --prefix backend heroku master

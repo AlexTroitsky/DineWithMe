@@ -38,15 +38,15 @@ export default function Login() {
 
         return (
             <>
-                <div className="login" style={{ backgroundImage: 'url("../assets/images/bg_2.jpg")' ,width: "99vw", height: "70vh", backgroundColor: "#f0f2f5", display: "flex",alignItems: "center",justifyContent: "center"}}>
-                    <div className="loginWrapper" style={{ width: "70%", display: "flex", justifyContent: "center"}}>
+                <div className="login" style={{ width: "100vw", height: "70vh", backgroundColor: "#f0f2f5", display: "flex",alignItems: "center",justifyContent: "center"}}>
+                    <div className="loginWrapper" style={{ width: "70%", display: "flex", justifyContent: "center", }}>
                         <div className="loginRight" style={{  display: "flex",justifyContent: "center"}}>
-                            <div className="loginBox" style={{ height: "300px", padding: "12%",backgroundColor: "#f1f1f1",borderRadius: "10px",display: "flex",flexDirection: "column",justifyContent: "space-between"}}>
+                            <div className="loginBox" style={{ height: "300px", padding: "12%",backgroundColor: "#2f3030",borderRadius: "10px",display: "flex",flexDirection: "column",justifyContent: "space-between"}}>
                                 <input placeholder="שם משתמש" className="loginInput" onChange={handleUsernameChanged} style={{ height: "50px",borderRadius: "10px",border: "1px solid gray",fontSize: "18px",paddingLeft: "20px"}} />
                                 <input type="password" placeholder="סיסמה" className="loginInput" onChange={handlePasswordChanged} style={{ height: "50px",borderRadius: "10px",border: "1px solid gray",fontSize: "18px",paddingLeft: "20px"}} />
                                 <button className="loginButton" onClick={onClick}
                                 style={{ height: "50px",borderRadius: "10px",border: "none",backgroundColor: "#1775ee",color: "white",fontSize: "20px",fontWeight: "500",cursor: "pointer"}} >התחבר</button>
-                                <span className="register" style={{  textAlign: "center",color: "#1775ee"}} ><Link to="/register">הרשמה</Link></span>
+                                <span className="register" style={{  textAlign: "center",color: "#1775ee !important"}} ><Link to="/register">הרשמה</Link></span>
                             </div>
                         </div>
                     </div>
