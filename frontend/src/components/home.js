@@ -10,18 +10,18 @@ class home extends Component {
                     <div className="overlay" />
                     <div className="container">
                         <div className="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true"
-                             style={{ height: '100vh' }} >
+                             style={{ height: '80vh' }} >
                             <div className="col-md-11 text-center">
                                 <h1 className="mb-4">עוזרים לאוהבי האוכל לנהל את הארוחות שלהם</h1>
                             </div>
                         </div>
                     </div>
                 </div>
-                <section className="ftco-section bg-light ftco-no-pt ftco-intro">
+                <section className="ftco-section bg-dark ftco-no-pt ftco-intro">
                     <div className="container">
                         <div className="row">
                             <div className="col d-flex align-self-stretch px-4">
-                                <div className="d-block services active text-center">
+                                <div className="d-block services text-center">
                                     <div className="icon d-flex align-items-center justify-content-center">
                                         <RestaurantIcon style={{ color: "#00bd56" }} fontSize="large"/>
                                     </div>

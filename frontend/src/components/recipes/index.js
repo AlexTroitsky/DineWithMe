@@ -3,6 +3,7 @@ import {useEffect, useState} from "react";
 import "./style.css";
 import RecipeTile from "../recipe-tile";
 import {
+    Button,
     FormControl,
     ImageList,
     Input,
@@ -27,18 +28,19 @@ function Receipes() {
     const [recipes, setRecipes] = useState([]);
     const [health, setHealth] = useState("");
     const [cuisine, setCuisine] = useState("");
-
+    const [next, setNext] = useState(null);
 
     const classes = useStyles();
 
     let getRecipeInfo = async () => {
-        let url = `${API_URL}?type=public&imageSize=REGULAR&q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`;
+        let url = `${API_URL}?type=public&imageSize=REGULAR&q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}&time=1-100&count=50`;
         if (health.length > 0)
             url += `&health=${health}`;
         if (cuisine.length > 0)
             url += `&cuisineType=${cuisine}`;
         let result = await Axios.get(url);
-        setRecipes(result.data.hits);
+        setRecipes(result.data?.hits);
+        setNext(result.data?._links.next.href);
     };
 
     useEffect(() => {
@@ -46,15 +48,27 @@ function Receipes() {
         }, [cuisine, health]
     );
 
+    const onContinue = async (e) => {
+        e.preventDefault();
+        if (next != null) {
+            let result = await Axios.get(next);
+            setRecipes([...recipes, ...result.data?.hits]);
+            setNext(result.data?._links.next?.href);
+        } else {
+            alert("No more to show!");
+        }
+    }
+
 
     const onSubmit = (e) => {
         e.preventDefault();
-        if (query != null)
+        if (query != null) {
+            setRecipes([]);
             getRecipeInfo();
+        }
     };
 
     return (
-
         <Container className="app"  >
             <Row className="align-items-center">
                 <Col xs={6} style={{display: 'flex', justifyContent: 'center'}}>
@@ -140,11 +154,16 @@ function Receipes() {
             </Row>
             <Row className="justify-content-center ">
                 <ImageList className={"justify-content-center"}
-                           style={{"margin": 20}}
-                >
+                           style={{"margin": 20}}>
                     {recipes !== [] && recipes.map((recipe) => <RecipeTile style={{padding: '2px'}} del={false} recipe={recipe['recipe']} />)};
                 </ImageList>
             </Row>
+            {next != null &&
+            <Row>
+                <Button variant="outlined" color="primary" href="#outlined-buttons" onClick={onContinue}>
+                    Load More ..
+                </Button>
+            </Row>}
         </Container>
     );
 }

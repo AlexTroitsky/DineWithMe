@@ -33,7 +33,7 @@ const columns = [
     },
     {
         field: 'health',
-        headerName: 'Health',
+        headerName: 'Type',
         minWidth: 120,
         flex: 0.05,
     },

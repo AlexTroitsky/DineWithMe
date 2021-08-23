@@ -123,9 +123,11 @@ const Recipe = ({ id, is_logged_in }) => {
         return (
             <div>
                 <div className='recipe-card '>
-
                     <div className="recipe-card__body">
                         <h2 className="recipe-card__heading text-center">{recipeData.label}</h2>
+                        <center>
+                           <a href={recipeData.url} color={"black"}><i style={{color:"black"}}>Original Link</i></a>
+                        </center>
                         <img className="d-block w-100" alt="recipe" style={{maxHeight: '30rem'}} src={recipeData.image}/>
 
                         <ul className="recipe-details">
