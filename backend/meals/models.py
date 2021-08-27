@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 
 from django.db import models
 from django.utils.encoding import smart_text as smart_unicode
@@ -33,7 +33,7 @@ class Meal(models.Model):
         ('kosher', 'Kosher'),
     ]
 
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    members = models.ManyToManyField(User, blank=True, related_name='user_meals')
     name = models.CharField(_("Name"), blank=True, max_length=255)
     health = models.CharField(max_length=20, blank=True, choices=MEAL_KIND_CHOICES)
     cuisine = models.CharField(max_length=20, blank=True, choices=MEAL_STYLE_CHOICES)

@@ -185,7 +185,7 @@ const Recipe = ({ id, is_logged_in }) => {
                 </div>
 
                 <Modal className={classes.modal} open={open} onClose={handleClose} closeAfterTransition aria-labelledby="simple-modal-title" aria-describedby="simple-modal-description">
-                        <MealsList recipe_id={recipe_id} recipe={recipeData} meals={meals} close_handler={handleClose} selected_meals={selected} set_selected={setSelected}/>
+                        <MealsList recipe_id={recipe_id} recipe={recipeData} meals={meals} selected_meals={selected} set_selected={setSelected}/>
                 </Modal>
             </div>
         );

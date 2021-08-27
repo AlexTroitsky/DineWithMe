@@ -101,10 +101,17 @@
   font-size: 21px;
   font-weight: 300;
 }
+
 .add_ingredient {
   position: absolute;
   bottom: 10px;
   right: 10px;
+}
+
+.share_ingredient {
+  position: absolute;
+  bottom: 10px;
+  left: 30px;
 }
 
 .recipes-container {

@@ -6,6 +6,8 @@ import uuid
 class Recipe(models.Model):
     id = models.CharField(primary_key=True,  default=uuid.uuid4, editable=True, max_length=255)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    # user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    maker = models.CharField(max_length=400, null=True)
     uri = models.URLField()
     label = models.CharField(name="label", max_length=400)
     image = models.URLField()

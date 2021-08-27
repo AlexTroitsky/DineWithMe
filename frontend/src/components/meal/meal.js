@@ -14,8 +14,19 @@ import axios from "axios";
 import {HEADERS, REST_API_IP} from "../../config";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {green} from "@material-ui/core/colors";
+import UsersList from "../users-modal";
+import Modal from "@material-ui/core/Modal";
+import GroupAddIcon from '@material-ui/icons/GroupAdd';
+import ShareIcon from "@material-ui/icons/Share";
+import AddIcon from "@material-ui/icons/Add";
 
 const useStyles = makeStyles((theme) => ({
+    modal: {
+        display: 'flex',
+        padding: theme.spacing(1),
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     root: {
         display: 'flex',
         flexWrap: 'nowrap',
@@ -36,9 +47,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Meal = ({ id }) => {
     const [meal, setMeal] = useState(null);
+    const [open, setOpen] = React.useState(false);
     const [error, setError] = useState(null);
     const [isLoaded, setIsLoaded] = useState(false);
     const classes = useStyles();
+    const [users, setUsers] = React.useState([]);
+    const [selected, setSelected] = React.useState([]);
+
     const delete_recipe = (recipe) => {
         let r = window.confirm("Are you sure you want to delete?");
         if (r == true) {
@@ -61,11 +76,31 @@ const Meal = ({ id }) => {
         }
     }
 
+    const handleOpen = () => {
+        axios.get(`${REST_API_IP}/users/`, {headers: HEADERS})
+            .then(
+                (result) => {
+                    setUsers(result.data);
+                },
+            ).catch((error) => {
+            console.log(error.response);
+        });
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+
+
     useEffect(() => {
         axios.get(`${REST_API_IP}/meals/${id}`, {headers: HEADERS})
             .then(
                 (result) => {
                     setMeal(result.data)
+                    setSelected(result.data.members);
+
                     setIsLoaded(true);
                     console.log(result.data)
                 },
@@ -88,6 +123,7 @@ const Meal = ({ id }) => {
             </div>);
     } else {
         return (
+            <div>
             <div className='recipe-card '>
 
                 <div className="recipe-card__body">
@@ -126,12 +162,21 @@ const Meal = ({ id }) => {
                     </Row>
                 </div>
                 <Row>
-                    <Col className="offset-10">
+                    <Col xs={3}>
+                        <Fab color="secondary"  className="share_ingredient" onClick={handleOpen}>
+                            <GroupAddIcon />
+                        </Fab>
+                    </Col>
+                    <Col className="offset-7">
                         <Fab color="secondary" className="add_ingredient" component={Link} to={"/recipes"}>
                             <ViewListIcon />
                         </Fab>
                     </Col>
                 </Row>
+            </div>
+                <Modal className={classes.modal} open={open} onClose={handleClose} closeAfterTransition aria-labelledby="select users" aria-describedby="select the users for the meal">
+                    <UsersList meal_id={id} users={users} selected_users={selected} set_selected={setSelected} />
+                </Modal>
 
             </div>
         );

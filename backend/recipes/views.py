@@ -1,10 +1,10 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView, CreateAPIView
+from rest_framework.parsers import JSONParser
 from rest_framework.permissions import IsAuthenticated
 
-from meals.models import Meal
-from meals.permissions import UserIsOwner
-from meals.serializers import MealSerializer
+from meals.permissions import UserIsMealOwner
 from recipes.models import Recipe
+from recipes.permissions import UserIsRecipeOwner
 from recipes.serializers import RecipeSerializer
 
 
@@ -21,7 +21,5 @@ class RecipeCreateAPIView(ListCreateAPIView):
 class RecipeDetailAPIView(RetrieveUpdateDestroyAPIView):
     serializer_class = RecipeSerializer
     queryset = Recipe.objects.all()
-    permission_classes = (IsAuthenticated, UserIsOwner)
-
-
+    permission_classes = (IsAuthenticated, ) # UserIsRecipeOwner)
 

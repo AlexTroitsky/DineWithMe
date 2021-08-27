@@ -1,5 +1,5 @@
 from django.contrib.auth import authenticate, get_user_model
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib.auth.hashers import make_password
 from django.utils.translation import ugettext_lazy as _
 
@@ -10,7 +10,7 @@ from rest_framework.authtoken.models import Token
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = get_user_model()
-        fields = ['username', 'email']
+        fields = ['id', 'username', 'email']
 
     def update(self, instance, validated_data):
         user = self.context['request'].user
@@ -23,6 +23,12 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         instance.save()
 
         return instance
+
+
+class GroupSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Group
+        fields = ['name']
 
 
 class UserRegistrationSerializer(serializers.ModelSerializer):

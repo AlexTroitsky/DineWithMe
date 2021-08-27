@@ -1,13 +1,14 @@
-from rest_framework import status, authentication
+from rest_framework import status, authentication, viewsets, permissions
 from rest_framework.authtoken.models import Token
 from rest_framework.generics import CreateAPIView, GenericAPIView, ListAPIView, RetrieveAPIView, UpdateAPIView
 from rest_framework.response import Response
 from rest_framework.generics import RetrieveDestroyAPIView
 from rest_framework.views import APIView
 
-from users.serializers import UserRegistrationSerializer, UserLoginSerializer, TokenSerializer, UserSerializer
-from django.contrib.auth.models import User
-from rest_framework import permissions
+from meals.permissions import UserIsMealOwner
+from users.serializers import UserRegistrationSerializer, UserLoginSerializer, TokenSerializer, UserSerializer, \
+    GroupSerializer
+from django.contrib.auth.models import User, Group
 
 
 # class UserList(ListAPIView):
@@ -25,6 +26,43 @@ class CurrentUserView(APIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class GroupViewSet(APIView):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    permission_classes = [permissions.IsAuthenticated, UserIsMealOwner]
+
+    def get(self, request, format=None):
+        groups = Group.objects.all()
+        serializer = GroupSerializer(groups, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = GroupSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserViewSet(ListAPIView):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+# class GroupViewSet(ListAPIView):
+#     """
+#     API endpoint that allows groups to be viewed or edited.
+#     """
+#     queryset = Group.objects.all()
+#     serializer_class = GroupSerializer
+#     permission_classes = [permissions.IsAuthenticated]
+
+
 
 # class CurrentUserView(UpdateAPIView):
 #     permission_classes = (permissions.IsAuthenticated,)
