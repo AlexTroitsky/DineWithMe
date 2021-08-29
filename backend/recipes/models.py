@@ -3,6 +3,7 @@ from django.db import models
 import uuid
 # Create your models here.
 
+
 class Recipe(models.Model):
     id = models.CharField(primary_key=True,  default=uuid.uuid4, editable=True, max_length=255)
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)

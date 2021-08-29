@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import {Fab,  ImageList, makeStyles } from "@material-ui/core";
-import {Col, Row} from "react-bootstrap";
+import {Fab, ImageList, makeStyles, TextField} from "@material-ui/core";
+import {Col, Row, ThemeProvider} from "react-bootstrap";
 import {Link} from "react-router-dom";
 import './style.css'
 import PersonIcon from '@material-ui/icons/Person';
@@ -19,13 +19,15 @@ import Modal from "@material-ui/core/Modal";
 import GroupAddIcon from '@material-ui/icons/GroupAdd';
 import ShareIcon from "@material-ui/icons/Share";
 import AddIcon from "@material-ui/icons/Add";
+import MenuItem from "@material-ui/core/MenuItem";
+import {createTheme} from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
     modal: {
         display: 'flex',
         padding: theme.spacing(1),
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     root: {
         display: 'flex',
@@ -36,7 +38,9 @@ const useStyles = makeStyles((theme) => ({
         overflowY: 'auto',
         WebkitOverflowScrolling: 'touch'
     },
-
+    margin: {
+        margin: theme.spacing(1),
+    },
     fabProgress: {
 
         color: green[500],
@@ -53,7 +57,11 @@ const Meal = ({ id }) => {
     const classes = useStyles();
     const [users, setUsers] = React.useState([]);
     const [selected, setSelected] = React.useState([]);
-
+    const theme = createTheme({
+        palette: {
+            primary: green,
+        },
+    });
     const delete_recipe = (recipe) => {
         let r = window.confirm("Are you sure you want to delete?");
         if (r == true) {
@@ -75,8 +83,7 @@ const Meal = ({ id }) => {
             });
         }
     }
-
-    const handleOpen = () => {
+    const get_users = () => {
         axios.get(`${REST_API_IP}/users/`, {headers: HEADERS})
             .then(
                 (result) => {
@@ -85,13 +92,25 @@ const Meal = ({ id }) => {
             ).catch((error) => {
             console.log(error.response);
         });
+    }
+
+    const handleOpen = () => {
+        get_users();
         setOpen(true);
     };
 
     const handleClose = () => {
         setOpen(false);
     };
-
+    const handleChangeUser = (recipe, value) => {
+        axios.put(`${REST_API_IP}/recipes/${recipe.id}`, {'user': value} ,{headers: HEADERS}).then(
+                (result) => {
+                    console.log(result);
+                }
+            ).catch((error) => {
+                setError(error);
+            });
+    }
 
 
     useEffect(() => {
@@ -111,7 +130,21 @@ const Meal = ({ id }) => {
             setIsLoaded(true);
             console.log(error.response);
         })
+        get_users()
     }, [])
+
+    const user_component = (recipe) => <center>
+                                <br/>
+                                <label htmlFor="baker">Baker: </label>
+                                <select defaultValue={recipe.user} name="baker" id="baker" onChange={(e) => handleChangeUser(recipe, e.target.value)}>
+                                    {users.length > 0 && users.filter((user) => selected.includes(user.id)).map(f_user => {
+                                        return <option value={f_user.id}>
+                                            {f_user.username}
+                                        </option>
+                                    })
+                                    }
+                                </select>
+                            </center>;
 
 
     if (error) {
@@ -157,7 +190,11 @@ const Meal = ({ id }) => {
                     </ul>
                     <Row className={"recipes-container"}>
                         <ImageList cols={4} classes={{root: classes.root}}>
-                            {meal.recipes !=null && meal.recipes?.map((recipe) => <RecipeTile style={{padding: '2px'}} del={true} recipe={recipe} setSelected handleDelete={delete_recipe}/>)};
+                            {meal.recipes != null && meal.recipes?.map((recipe) =>
+                                <RecipeTile style={{padding: '2px'}} del={true} recipe={recipe} setSelected
+                                            handleDelete={delete_recipe}
+                                            additional_component={user_component(recipe)}/>)
+                            }
                         </ImageList>
                     </Row>
                 </div>

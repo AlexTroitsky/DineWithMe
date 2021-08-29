@@ -5,7 +5,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 
 
 export default function Profile() {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
     const [profile, setProfile] = useState(null);
 
@@ -13,9 +12,9 @@ export default function Profile() {
         axios.get(`${REST_API_IP}/details/`, {headers: HEADERS})
             .then(
                 (result) => {
-                    setIsLoggedIn(true);
-                    setIsLoaded(true);
+                    debugger
                     setProfile(result.data)
+                    setIsLoaded(true);
                     console.log(result)
                 },
                 // Note: it's important to handle errors here
@@ -23,7 +22,6 @@ export default function Profile() {
                 // exceptions from actual bugs in components.
             ).catch((error) => {
                 setIsLoaded(true);
-                setIsLoggedIn(false);
                 console.log(error.response);
             })
     }, []);
@@ -51,7 +49,6 @@ export default function Profile() {
                             <div>
                                 <div class="card-body py-3 px-0">
                                     <p className="mb-0 phone pl-md-2" style={{ textAlign: "right", width: "61%" }}>
-                                        <a className="btn"> !שלום </a>
                                     </p>
                                 </div>
                             </div>
